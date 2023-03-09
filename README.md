@@ -1,9 +1,3 @@
 - Concept:(horizontal-game) player moving and jumping over obstacles using arrow keys.
 
-- objectives:
-
-1. implement jumping and moving functionality into player class
-2. create obstacle class
-3. implement obstacle movment. Make it random
-4. crash detection
-5. add images
+- objectives: Player must use the arrow keys to avoid and jump over incoming obstacles. If collision occurs, a life is deducted. Points awarded for every obstacle avoided.
