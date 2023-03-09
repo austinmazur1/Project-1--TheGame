@@ -11,5 +11,8 @@ canvas{
     z-index: 1;
 }
 
+body {
+    overflow: hidden;
+}
 
 
