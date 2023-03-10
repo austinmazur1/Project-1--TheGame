@@ -7,6 +7,7 @@ class Player {
     this.ctx = ctx;
     this.x_velocity = 0;
     this.y_velocity = 0;
+    this.lives = 3;
     // this.jumping = false;
     // this.left = false;
     // this.right = false;
