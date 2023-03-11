@@ -16,6 +16,14 @@ body{
     background-color: green;
     width: 100px;
     height: 100px;
-    
+    color: white;    
 } */
 
+.right {
+    margin: 30px;
+    font-size: 40px;
+}
+
+/* .score {
+    font-size: 40px;
+} */

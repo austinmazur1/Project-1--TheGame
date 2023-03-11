@@ -1,0 +1,26 @@
+An attempt at the point system. was working but on game reset it wouldnt work.
+
+//game over if player runs out of lives
+    // else if (player.lives === 0) {
+    //   GameOver();
+    // }
+    // points(el)
+
+    //'TODO'work on point system
+    // if (player.x > el.x && player.y > el.y && !isGameOver) {
+    //   console.log("yes");
+    //   score += 0.05;
+    //   currentScore = Math.trunc(score);
+    //   gameScore.innerHTML = `${currentScore}`;
+    //   console.log(score);
+    //   console.log(currentScore);
+    // } 
+    // if (isGameOver === false) {
+
+    // }
+
+
+was trying to implement this to fix the original scoring problem
+
+let isGameOver = false;
+     isGameOver = true;
