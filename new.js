@@ -5,10 +5,22 @@ const canvas = document.querySelector("#canvas");
 const ctx = document.querySelector("canvas").getContext("2d");
 const gameScore = document.querySelector(".score");
 const highScoreEl = document.querySelector(".highscore");
+const lives = document.querySelector(".life-count");
+
+const background = new Image();
+background.src = 'assets/Background.png'
 
 //player, and obstacle array
 const player = new Player(ctx, canvas);
 const obstacles = [];
+
+//randomize obstacles coming out
+let minDelay = 100;
+let maxDelay = 200;
+function getRAndomObstacleDelay(){
+  return Math.floor(Math.random() * (maxDelay - minDelay + 1) + minDelay);
+}
+let obstacleDelay = getRAndomObstacleDelay();
 
 //variables for moving obstacle and score feature
 let counter = 0;
@@ -46,18 +58,22 @@ const loop = function () {
   clearCanv();
 
   //Draw background
-  ctx.fillStyle = "grey";
-  ctx.fillRect(0, 0, 800, 600);
+  // ctx.fillStyle = "grey";
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+  
 
   //Draw the player
   player.draw();
   
   /////Draw obstacles
   //speed of obstacles
-  if (counter % 60 === 0) {
+  if (counter % obstacleDelay === 0) {
     const obst = new Obstacle(ctx, canvas, 2);
     obstacles.push(obst);
-  }
+
+    obstacleDelay = getRAndomObstacleDelay();
+  } 
 
   //loop to create obstacles
   obstacles.forEach((el) => {
@@ -99,8 +115,12 @@ const loop = function () {
       el.y < player.y + player.height &&
       el.height + el.y > player.y
     ) {
+      // clearCanv();
+      
       player.x = 10;
       player.lives--;
+      obstacles.length = 1;
+      lives.innerHTML = `${player.lives}`
       console.log(player.lives);
     }
   });
@@ -109,7 +129,7 @@ const loop = function () {
   //"TODO" put into function maybe
   if (movement.up && player.jumping == false) {
     //controls jump height
-    player.y_velocity -= 25;
+    player.y_velocity -= 30;
     player.jumping = true;
   }
 
@@ -129,18 +149,22 @@ const loop = function () {
   player.y_velocity *= 0.96; // friction illusion
 
   // keeps obj from falling past canvas
-  if (player.y > 565) {
+  if (player.y > canvas.height - player.height) {
     player.jumping = false;
-    player.y = 565;
+    player.y = canvas.height - player.height;
     player.y_velocity = 0;
   }
 
   // creating left and right border
   if (player.x < 0) {
     player.x = 0;
-  } else if (player.x > 765) {
-    player.x = 765;
+  } else if (player.x > canvas.width - 35) {
+    player.x = canvas.width - 35;
   }
+
+  
+  
+  
 
   // call update when the browser is ready to draw again
   window.requestAnimationFrame(loop);
@@ -161,7 +185,7 @@ function GameOver() {
   ctx.font = "60px Arial";
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
-  ctx.strokeText("Oh no! Game Over", 100, 100);
+  ctx.fillText("Oh no! Game Over", canvas.width / 2, canvas.height / 2);
   gameScore.innerHTML = `${score}`;
 }
 
@@ -180,14 +204,29 @@ function resetGame() {
   player.x_velocity = 0;
   player.y_velocity = 0;
   player.lives = 3;
+  lives.innerHTML = `${player.lives}`
   obstacles.length = 0;
   isGameOver = false;
 }
 
 //button click to reset game and play again
-document.querySelector(".again").addEventListener("click keydown", function (e) {
-  if(e.type === 'keydown' && e.key === "Enter") 
+document.querySelector(".again").addEventListener("click", function (e) {
   resetGame();
-  
-  // window.requestAnimationFrame(loop);
 });
+
+
+/////////////////////
+
+
+// function animate() {
+//   requestAnimationFrame(animate);
+  
+//   // clear the canvas
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+//   // calculate the position of the background image based on the player's position
+//   const bgX = player.x * .2;
+  
+//   // draw the background image at the calculated position
+// //   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+// }

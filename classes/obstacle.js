@@ -11,10 +11,13 @@ class Obstacle {
     this.y_velocity = 0;
     this.spacing = spacing;
     this.scored = false;
+    this.img = new Image();
+    this.img.src = "assets/blockswalls_01.png"
   }
   draw() {
-    this.ctx.fillStyle = "green";
-    this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    // this.ctx.fillStyle = "green";
+    // this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
   moveLeft() {
     this.x -= Math.floor(Math.random() * 10) + 2 * this.spacing;
