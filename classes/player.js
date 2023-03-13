@@ -3,7 +3,8 @@ class Player {
     this.x = 10;
     this.width = 60;
     this.height = 60;
-    this.y = canvas.height - this.height;
+    // this.y = canvas.height - this.height;
+    this.y = 0;
     this.ctx = ctx;
     this.x_velocity = 0;
     this.y_velocity = 0;
@@ -16,6 +17,7 @@ class Player {
     // this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
+  
 }
 
 

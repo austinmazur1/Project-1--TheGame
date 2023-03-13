@@ -6,7 +6,14 @@ const ctx = document.querySelector("canvas").getContext("2d");
 const gameScore = document.querySelector(".score");
 const highScoreEl = document.querySelector(".highscore");
 const lives = document.querySelector(".life-count");
+const lostLife = document.querySelector('.life-less');
+const points = document.querySelector('.points');
 
+
+//Sounds
+const backgroundMusic = new Audio('assets/bgm_0.wav')
+const jumpSound = new Audio('assets/SFX_Jump_07.wav')
+const lifeDeduction = new Audio('assets/Retro12.wav');
 const background = new Image();
 background.src = 'assets/Background.png'
 
@@ -43,6 +50,7 @@ const movement = {
         break;
       case "ArrowUp": // up key
         movement.up = keyState;
+        // jumpSound.play();
         break;
       case "ArrowRight": // right key
         movement.right = keyState;
@@ -56,6 +64,9 @@ const loop = function () {
   //counter increments as loop runs
   counter++;
   clearCanv();
+  // backgroundMusic.play();
+  lostLife.classList.remove('life-less');
+  points.classList.remove('points');
 
   //Draw background
   // ctx.fillStyle = "grey";
@@ -83,6 +94,7 @@ const loop = function () {
     //points if player jumps over obstacle, 10 points awarded
     if (el.x < player.x && !el.scored && !isGameOver) {
       el.scored = true;
+      points.classList.add('points')
       score += 10;
       gameScore.innerHTML = score;
       //nested if to change difficulty "TODO"
@@ -116,11 +128,12 @@ const loop = function () {
       el.height + el.y > player.y
     ) {
       // clearCanv();
-      
+      lifeDeduction.play();
       player.x = 10;
       player.lives--;
       obstacles.length = 1;
       lives.innerHTML = `${player.lives}`
+      lostLife.classList.add('life-less')
       console.log(player.lives);
     }
   });
@@ -131,6 +144,7 @@ const loop = function () {
     //controls jump height
     player.y_velocity -= 30;
     player.jumping = true;
+    
   }
 
   // controls the left speed
@@ -187,6 +201,7 @@ function GameOver() {
   ctx.textAlign = "center";
   ctx.fillText("Oh no! Game Over", canvas.width / 2, canvas.height / 2);
   gameScore.innerHTML = `${score}`;
+  lostLife.classList.add('life-less')
 }
 
 //clears canvas
@@ -200,7 +215,8 @@ function resetGame() {
   score = 0;
   gameScore.innerHTML = `${score}`;
   player.x = 10;
-  player.y = canvas.height - player.height;
+  // player.y = canvas.height - player.height;
+  player.y = 0;
   player.x_velocity = 0;
   player.y_velocity = 0;
   player.lives = 3;
@@ -209,9 +225,13 @@ function resetGame() {
   isGameOver = false;
 }
 
+
+
 //button click to reset game and play again
 document.querySelector(".again").addEventListener("click", function (e) {
   resetGame();
+  const boop = new Audio('assets/Modern7.wav');
+  boop.play();
 });
 
 
