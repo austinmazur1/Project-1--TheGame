@@ -1,6 +1,7 @@
 import Player from "./classes/player.js";
 import Obstacle from "./classes/obstacle.js";
 
+//DOM Elements
 const canvas = document.querySelector("#canvas");
 const ctx = document.querySelector("canvas").getContext("2d");
 const gameScore = document.querySelector(".score");
@@ -8,6 +9,20 @@ const highScoreEl = document.querySelector(".highscore");
 const lives = document.querySelector(".life-count");
 const lostLife = document.querySelector('.life-less');
 const points = document.querySelector('.points');
+const easy = document.querySelector('#easy');
+const medium = document.querySelector('#medium');
+const hard = document.querySelector('#hard');
+const instructions = document.querySelector('#how-to-play');
+const splashScreen = document.querySelector('splash-screen');
+const playAgain = document.querySelector(".again");
+const buttons = document.querySelector(".btn-wrap");
+const home = document.querySelector('.home-screen');
+
+
+
+let playEasy = false;
+let playMedium = false;
+let playHard = false;
 
 
 //Sounds
@@ -21,11 +36,27 @@ background.src = 'assets/Background.png'
 const player = new Player(ctx, canvas);
 const obstacles = [];
 
+// Background position
+let bgX = 0;
+
 //randomize obstacles coming out
 let minDelay = 100;
 let maxDelay = 200;
 function getRAndomObstacleDelay(){
+  if(playEasy) {
+   minDelay = 300;
+    maxDelay = 400;
+    console.log(playEasy);
+  } else if (playMedium) {
+    minDelay = 200;
+    maxDelay = 300;
+    console.log(playMedium);
+  } else if (playHard) {
+    minDelay = 100;
+    maxDelay = 200;
+  }
   return Math.floor(Math.random() * (maxDelay - minDelay + 1) + minDelay);
+  
 }
 let obstacleDelay = getRAndomObstacleDelay();
 
@@ -61,6 +92,7 @@ const movement = {
 
 //GAME LOOP
 const loop = function () {
+
   //counter increments as loop runs
   counter++;
   clearCanv();
@@ -71,8 +103,19 @@ const loop = function () {
   //Draw background
   // ctx.fillStyle = "grey";
   // ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(background, bgX, 0, canvas.width, canvas.height);
+  ctx.drawImage(background, bgX + canvas.width, 0, canvas.width, canvas.height)
   
+  // Move background
+  bgX -= 1;
+  bgX %= canvas.width;
+
+  //easyMode
+  // if(playEasy) {
+  //   minDelay = 300;
+  //   maxDelay = 400;
+  //   console.log("hi");
+  // }
 
   //Draw the player
   player.draw();
@@ -186,7 +229,61 @@ const loop = function () {
 
 window.addEventListener("keydown", movement.keyListener);
 window.addEventListener("keyup", movement.keyListener);
-window.requestAnimationFrame(loop);
+// window.requestAnimationFrame(loop);
+
+easy.addEventListener('click', function(){
+  // clearCanv();
+  // window.cancelAnimationFrame(loop);
+  window.requestAnimationFrame(loop);
+  playEasy = true;
+  //displays canvas back in original postion
+  canvas.style.display = 'block';
+  buttons.classList.remove('hide')
+  buttons.style.display = 'block'
+  console.log(home);
+  console.log("easy mode");
+  console.log(playEasy);
+})
+
+medium.addEventListener('click', function(){
+  window.requestAnimationFrame(loop);
+  playMedium = true;
+  //displays canvas back in original postion
+  canvas.style.display = 'block';
+  console.log(playMedium);
+  console.log("medium mode");
+})
+
+hard.addEventListener('click', function(){
+  window.requestAnimationFrame(loop);
+  playHard = true;
+  //displays canvas back in original postion
+  canvas.style.display = 'block';
+  console.log(playMedium);
+  console.log("hard mode");
+  // splashScreen.style.display = 'none'
+})
+home.addEventListener('click', function(){
+  clearCanv();
+  counter = 0;
+  canvas.style.display = "none"
+  window.cancelAnimationFrame(loop);
+  playEasy = false;
+  playMedium = false;
+  playHard = false;
+  console.log(playEasy);
+  console.log(playHard);
+  console.log(playMedium);
+  resetGame();
+  //displays canvas back in original postion
+  // canvas.style.display = 'none';
+  
+  console.log("home");
+  // splashScreen.style.display = 'none'
+})
+
+
+
 
 ///////////functions
 
@@ -228,7 +325,7 @@ function resetGame() {
 
 
 //button click to reset game and play again
-document.querySelector(".again").addEventListener("click", function (e) {
+playAgain.addEventListener("click", function (e) {
   resetGame();
   const boop = new Audio('assets/Modern7.wav');
   boop.play();

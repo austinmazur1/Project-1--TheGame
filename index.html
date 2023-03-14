@@ -9,7 +9,18 @@
   </head>
   <body>
     <header>
-     
+     <div class="splash-screen">
+      <section class="title-tag">
+      <h1>Infinite Scroller</h1>
+      <p>Whats your highscore?</p>
+    </section>
+      <section class="difficulty">
+        <button class="btn-difficult" id="easy">Easy</button>
+        <button class="btn-difficult" id="medium">Medium</button>
+        <button class="btn-difficult" id="hard">Hard</button>
+        <button class="btn-difficult" id="how-to-play">How to play</button>
+      </section>
+     </div>
       <div class="right-left">
       <div class="left life-less">Lives: <span class="life-count">3</span></div>
       <section class="right points">
@@ -18,9 +29,11 @@
       </section>
   
     </div>
-     <div class="btn-wrap">
+     <section class="btn-wrap hide">
+      <button class="home-screen">Home!</button>
       <button class="again">Again!</button>
-    </div>
+     </section>
+    
     </header>
     <div id="background"></div>
     <canvas id="canvas" width="1400" height="600"></canvas>

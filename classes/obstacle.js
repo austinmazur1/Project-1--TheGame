@@ -13,6 +13,7 @@ class Obstacle {
     this.scored = false;
     this.img = new Image();
     this.img.src = "assets/blockswalls_01.png"
+    this.imageList = []
   }
   draw() {
     // this.ctx.fillStyle = "green";
@@ -26,6 +27,8 @@ class Obstacle {
   mediumMode() {
     this.x -= Math.floor(Math.random() * 10) + 2 * this.spacing;
   }
+
+  randomImage() {}
 }
 
 export default Obstacle;
