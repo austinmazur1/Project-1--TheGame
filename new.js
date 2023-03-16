@@ -7,30 +7,31 @@ const ctx = document.querySelector("canvas").getContext("2d");
 const gameScore = document.querySelector(".score");
 const highScoreEl = document.querySelector(".highscore");
 const lives = document.querySelector(".life-count");
-const lostLife = document.querySelector('.life-less');
-const points = document.querySelector('.points');
-const easy = document.querySelector('#easy');
-const medium = document.querySelector('#medium');
-const hard = document.querySelector('#hard');
-const instructions = document.querySelector('#how-to-play');
-const splashScreen = document.querySelector('splash-screen');
+const lostLife = document.querySelector(".life-less");
+const points = document.querySelector(".points");
+const easy = document.querySelector("#easy");
+const medium = document.querySelector("#medium");
+const hard = document.querySelector("#hard");
+const instructions = document.querySelector("#how-to-play");
+const splashScreen = document.querySelector(".splash-screen");
 const playAgain = document.querySelector(".again");
 const buttons = document.querySelector(".btn-wrap");
-const home = document.querySelector('.home-screen');
-
-
+const home = document.querySelector(".home-screen");
+const scoreLives = document.querySelector(".game-info");
+const howTo = document.querySelector(".instructions");
 
 let playEasy = false;
 let playMedium = false;
 let playHard = false;
-
-
+let animateFrameId;
 //Sounds
-const backgroundMusic = new Audio('assets/bgm_0.wav')
-const jumpSound = new Audio('assets/SFX_Jump_07.wav')
-const lifeDeduction = new Audio('assets/Retro12.wav');
+const backgroundMusic = new Audio("assets/bgm_0.wav");
+const jumpSound = new Audio("assets/SFX_Jump_07.wav");
+const lifeDeduction = new Audio("assets/Retro12.wav");
 const background = new Image();
-background.src = 'assets/Background.png'
+background.src = "assets/Background.png";
+
+
 
 //player, and obstacle array
 const player = new Player(ctx, canvas);
@@ -42,9 +43,9 @@ let bgX = 0;
 //randomize obstacles coming out
 let minDelay = 100;
 let maxDelay = 200;
-function getRAndomObstacleDelay(){
-  if(playEasy) {
-   minDelay = 300;
+function getRAndomObstacleDelay() {
+  if (playEasy) {
+    minDelay = 300;
     maxDelay = 400;
     console.log(playEasy);
   } else if (playMedium) {
@@ -54,9 +55,8 @@ function getRAndomObstacleDelay(){
   } else if (playHard) {
     minDelay = 100;
     maxDelay = 200;
-  }
+  } 
   return Math.floor(Math.random() * (maxDelay - minDelay + 1) + minDelay);
-  
 }
 let obstacleDelay = getRAndomObstacleDelay();
 
@@ -92,20 +92,19 @@ const movement = {
 
 //GAME LOOP
 const loop = function () {
-
   //counter increments as loop runs
   counter++;
   clearCanv();
   // backgroundMusic.play();
-  lostLife.classList.remove('life-less');
-  points.classList.remove('points');
+  lostLife.classList.remove("life-less");
+  points.classList.remove("points");
 
   //Draw background
   // ctx.fillStyle = "grey";
   // ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(background, bgX, 0, canvas.width, canvas.height);
-  ctx.drawImage(background, bgX + canvas.width, 0, canvas.width, canvas.height)
-  
+  ctx.drawImage(background, bgX + canvas.width, 0, canvas.width, canvas.height);
+
   // Move background
   bgX -= 1;
   bgX %= canvas.width;
@@ -119,7 +118,7 @@ const loop = function () {
 
   //Draw the player
   player.draw();
-  
+
   /////Draw obstacles
   //speed of obstacles
   if (counter % obstacleDelay === 0) {
@@ -127,7 +126,7 @@ const loop = function () {
     obstacles.push(obst);
 
     obstacleDelay = getRAndomObstacleDelay();
-  } 
+  }
 
   //loop to create obstacles
   obstacles.forEach((el) => {
@@ -137,14 +136,14 @@ const loop = function () {
     //points if player jumps over obstacle, 10 points awarded
     if (el.x < player.x && !el.scored && !isGameOver) {
       el.scored = true;
-      points.classList.add('points')
+      points.classList.add("points");
       score += 10;
       gameScore.innerHTML = score;
       //nested if to change difficulty "TODO"
       // if (score > 50) {
       //   console.log("medium");
       // }
-    } 
+    }
     //if player runs out of lives the game over function runs
     else if (player.lives <= 0) {
       GameOver();
@@ -175,8 +174,8 @@ const loop = function () {
       player.x = 10;
       player.lives--;
       obstacles.length = 1;
-      lives.innerHTML = `${player.lives}`
-      lostLife.classList.add('life-less')
+      lives.innerHTML = `${player.lives}`;
+      lostLife.classList.add("life-less");
       console.log(player.lives);
     }
   });
@@ -187,7 +186,6 @@ const loop = function () {
     //controls jump height
     player.y_velocity -= 30;
     player.jumping = true;
-    
   }
 
   // controls the left speed
@@ -219,71 +217,101 @@ const loop = function () {
     player.x = canvas.width - 35;
   }
 
-  
-  
-  
-
   // call update when the browser is ready to draw again
-  window.requestAnimationFrame(loop);
+  animateFrameId = window.requestAnimationFrame(loop);
+  return animateFrameId;
 };
 
 window.addEventListener("keydown", movement.keyListener);
 window.addEventListener("keyup", movement.keyListener);
 // window.requestAnimationFrame(loop);
 
-easy.addEventListener('click', function(){
-  // clearCanv();
-  // window.cancelAnimationFrame(loop);
-  window.requestAnimationFrame(loop);
+function stopAnimation() {
+  cancelAnimationFrame(animateFrameId);
+  console.log("stop please");
+}
+
+easy.addEventListener("click", function () {
+  loop();
+  console.log(loop);
   playEasy = true;
+  playMedium = false;
+  playHard = false;
   //displays canvas back in original postion
-  canvas.style.display = 'block';
-  buttons.classList.remove('hide')
-  buttons.style.display = 'block'
+  canvas.style.display = "block";
+  buttons.classList.remove("hide");
+  buttons.style.display = "block";
+  points.classList.remove("hide");
+  // scoreLives.style.display = "flex"
+  points.style.display = 'flex'
   console.log(home);
   console.log("easy mode");
   console.log(playEasy);
-})
+});
 
-medium.addEventListener('click', function(){
-  window.requestAnimationFrame(loop);
+medium.addEventListener("click", function () {
+  loop();
+   canvas.style.display = "block";
+  buttons.classList.remove("hide");
+  buttons.style.display = "block";
+  points.classList.remove("hide");
+  points.style.display = 'flex'
+  playEasy = false;
   playMedium = true;
+  playHard = false;
   //displays canvas back in original postion
-  canvas.style.display = 'block';
+  // canvas.style.display = "block";
   console.log(playMedium);
   console.log("medium mode");
-})
+});
 
-hard.addEventListener('click', function(){
-  window.requestAnimationFrame(loop);
+hard.addEventListener("click", function () {
+  loop();
+  canvas.style.display = "block";
+  buttons.classList.remove("hide");
+  buttons.style.display = "block";
+  points.classList.remove("hide");
+  points.style.display = 'flex'
+  playEasy = false;
+  playMedium = false;
   playHard = true;
   //displays canvas back in original postion
-  canvas.style.display = 'block';
+  canvas.style.display = "block";
   console.log(playMedium);
   console.log("hard mode");
   // splashScreen.style.display = 'none'
-})
-home.addEventListener('click', function(){
+});
+
+// instructions.addEventListener("click", function () {
+// howTo.classList.remove('hide');
+// })
+home.addEventListener("click", goHome);
+function goHome() {
   clearCanv();
+  cancelAnimationFrame(animateFrameId);
+  resetGame();
+  points.classList.add("hide");
+  buttons.style.display = "none";
   counter = 0;
-  canvas.style.display = "none"
-  window.cancelAnimationFrame(loop);
+  canvas.style.display = "none";
+  points.style.display = 'none'
   playEasy = false;
   playMedium = false;
   playHard = false;
-  console.log(playEasy);
-  console.log(playHard);
-  console.log(playMedium);
-  resetGame();
+  minDelay = 100;
+  maxDelay = 200;
+  isGameOver = true;
   //displays canvas back in original postion
-  // canvas.style.display = 'none';
-  
+  canvas.style.display = 'none';
+
   console.log("home");
   // splashScreen.style.display = 'none'
-})
+}
 
-
-
+// console.log(goHome);
+// if (goHome) {
+//   console.log(true);
+// }
 
 ///////////functions
 
@@ -291,14 +319,18 @@ function GameOver() {
   window.cancelAnimationFrame(loop);
   clearCanv();
   isGameOver = true;
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.font = "60px Arial";
+  playEasy = false;
+  playMedium = false;
+  playHard = false;
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "100px Arial";
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
-  ctx.fillText("Oh no! Game Over", canvas.width / 2, canvas.height / 2);
+  ctx.fillText(`Highscore:${highScore}`, canvas.width / 2, canvas.height / 1.5);
+  ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
   gameScore.innerHTML = `${score}`;
-  lostLife.classList.add('life-less')
+  lostLife.classList.add("life-less");
 }
 
 //clears canvas
@@ -317,33 +349,15 @@ function resetGame() {
   player.x_velocity = 0;
   player.y_velocity = 0;
   player.lives = 3;
-  lives.innerHTML = `${player.lives}`
+  lives.innerHTML = `${player.lives}`;
   obstacles.length = 0;
   isGameOver = false;
 }
 
-
-
 //button click to reset game and play again
 playAgain.addEventListener("click", function (e) {
   resetGame();
-  const boop = new Audio('assets/Modern7.wav');
+  const boop = new Audio("assets/Modern7.wav");
   boop.play();
 });
 
-
-/////////////////////
-
-
-// function animate() {
-//   requestAnimationFrame(animate);
-  
-//   // clear the canvas
-//   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-//   // calculate the position of the background image based on the player's position
-//   const bgX = player.x * .2;
-  
-//   // draw the background image at the calculated position
-// //   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-// }

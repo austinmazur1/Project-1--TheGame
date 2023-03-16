@@ -64,12 +64,20 @@ html {
   overflow: hidden;
 }
 
-.right-left {
-  margin-top: 15rem;
+ /* .game-info {
+  margin-top: -40rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+ 
+}  */
+
+.container {
+  margin-left: 130rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .left,
@@ -79,44 +87,48 @@ p {
 }
 
 .right {
-  /* background: rgba(135, 134, 145, 0.2); */
-  margin-top: -2rem;
+  background: rgba(135, 134, 145, 0.2);
+  margin-top: -70rem;
+  margin-left: 100rem;
   width: 20rem;
-  height: 6rem;
+  height: 9rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   border: 1px, solid, white;
   transition-duration: 0.4s;
 }
-.left,
+
+.lives,
 .right {
   background: rgba(135, 134, 145, 0.2);
   border-radius: 2rem;
   text-align: center;
 }
 
-.left {
+.lives {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 13rem;
   height: 4rem;
+  top: ;
+   /* margin-top: 15rem; */
 }
 
-.life-less {
+/* .life-less {
   background-color: red;
-}
+} */
 
-.points {
+/* .points {
   background-color: green;
-}
+} */
 
 .btn-wrap {
   width: 60rem;
   position: fixed;
-  top: 55rem;
+  top: 62rem;
   left: 60rem;
   /* background-color: yellow; */
   display: flex;
@@ -142,11 +154,9 @@ p {
   bottom: 40%; */
 }
 .again {
-  /* text-decoration: none;
-  color: white; */
   font-size: 30px;
   /* background-color:rgba(135, 134, 145, 0.2);
-  border: none;
+  
   border-radius: 2rem; */
   /* top: 80%;
   left: 42%; */
@@ -181,6 +191,10 @@ button:hover {
   background-color: rgba(150, 147, 173);
   width: 21rem;
   height: 7rem;
+}
+
+.instructions {
+  display: block;
 }
 
 .hide {
