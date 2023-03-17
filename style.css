@@ -132,7 +132,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  z-index: 1;
+  z-index: 99999;
 }
 .home-screen {
  height: 6rem;

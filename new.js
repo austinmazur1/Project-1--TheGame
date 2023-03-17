@@ -250,13 +250,14 @@ easy.addEventListener("click", function () {
   points.style.display = 'flex'
 
   isGameOver = false;
+  splashScreen.classList.add('hide')
   // highScoreEl.innerHTML = 0;
 });
 
 medium.addEventListener("click", function () {
   loop();
    canvas.style.display = "block";
-   canvas.classList.add('zindex')
+   canvas.classList.add('zindex');
 
   buttons.classList.remove("hide");
   buttons.style.display = "block";
@@ -271,23 +272,29 @@ medium.addEventListener("click", function () {
  
   console.log(playMedium);
   console.log("medium mode");
+  splashScreen.classList.add('hide')
 });
 
 hard.addEventListener("click", function () {
   loop();
   canvas.style.display = "block";
+  canvas.classList.add('zindex');
+
   buttons.classList.remove("hide");
   buttons.style.display = "block";
+
   points.classList.remove("hide");
   points.style.display = 'flex'
+
   playEasy = false;
   playMedium = false;
   playHard = true;
   //displays canvas back in original postion
-  canvas.style.display = "block";
+  // canvas.style.display = "block";
   console.log(playMedium);
   console.log("hard mode");
   // splashScreen.style.display = 'none'
+  splashScreen.classList.add('hide')
 });
 
 // instructions.addEventListener("click", function () {
