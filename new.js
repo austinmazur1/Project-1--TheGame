@@ -17,8 +17,9 @@ const splashScreen = document.querySelector(".splash-screen");
 const playAgain = document.querySelector(".again");
 const buttons = document.querySelector(".btn-wrap");
 const home = document.querySelector(".home-screen");
-const scoreLives = document.querySelector(".game-info");
+const right = document.querySelector(".right");
 const howTo = document.querySelector(".instructions");
+const backgroundColor = document.querySelector("#background");
 
 let playEasy = false;
 let playMedium = false;
@@ -175,7 +176,7 @@ const loop = function () {
       player.lives--;
       obstacles.length = 1;
       lives.innerHTML = `${player.lives}`;
-      lostLife.classList.add("life-less");
+      // lostLife.classList.add("life-less");
       console.log(player.lives);
     }
   });
@@ -233,34 +234,41 @@ function stopAnimation() {
 
 easy.addEventListener("click", function () {
   loop();
-  console.log(loop);
+  
   playEasy = true;
   playMedium = false;
   playHard = false;
   //displays canvas back in original postion
   canvas.style.display = "block";
+  canvas.classList.add('zindex')
+  // background.classList.add('hide')
+
   buttons.classList.remove("hide");
   buttons.style.display = "block";
+
   points.classList.remove("hide");
-  // scoreLives.style.display = "flex"
   points.style.display = 'flex'
-  console.log(home);
-  console.log("easy mode");
-  console.log(playEasy);
+
+  isGameOver = false;
+  // highScoreEl.innerHTML = 0;
 });
 
 medium.addEventListener("click", function () {
   loop();
    canvas.style.display = "block";
+   canvas.classList.add('zindex')
+
   buttons.classList.remove("hide");
   buttons.style.display = "block";
+
   points.classList.remove("hide");
   points.style.display = 'flex'
+
+  isGameOver = false;
   playEasy = false;
   playMedium = true;
   playHard = false;
-  //displays canvas back in original postion
-  // canvas.style.display = "block";
+ 
   console.log(playMedium);
   console.log("medium mode");
 });
@@ -302,7 +310,7 @@ function goHome() {
   maxDelay = 200;
   isGameOver = true;
   //displays canvas back in original postion
-  canvas.style.display = 'none';
+
 
   console.log("home");
   // splashScreen.style.display = 'none'

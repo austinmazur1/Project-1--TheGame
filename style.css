@@ -32,6 +32,7 @@ h1 {
 h1,
 .title-tag p {
   color: white;
+  z-index: 1;
 }
 
 .difficulty {
@@ -40,6 +41,7 @@ h1,
   width: 80rem;
   display: flex;
   justify-content: space-around;
+  z-index: 1;
 }
 
 .difficulty button {
@@ -56,6 +58,7 @@ canvas {
 }
 
 html {
+  /* background-color: lightblue; */
   background-image: linear-gradient(45deg, #09031a, #13043d);
   /* -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -64,20 +67,15 @@ html {
   overflow: hidden;
 }
 
- /* .game-info {
-  margin-top: -40rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
- 
-}  */
-
-.container {
-  margin-left: 130rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+.background {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000rem;
+  height: 1000rem;
+  /* background-image: linear-gradient(45deg, #09031a, #13043d); */
+  /* background-color: lightblue; */
+  z-index: 0;
 }
 
 .left,
@@ -89,7 +87,7 @@ p {
 .right {
   background: rgba(135, 134, 145, 0.2);
   margin-top: -70rem;
-  margin-left: 100rem;
+  margin-left: 104rem;
   width: 20rem;
   height: 9rem;
   display: flex;
@@ -97,6 +95,7 @@ p {
   justify-content: space-evenly;
   border: 1px, solid, white;
   transition-duration: 0.4s;
+  z-index: 9999;
 }
 
 .lives,
@@ -105,7 +104,7 @@ p {
   border-radius: 2rem;
   text-align: center;
 }
-
+/*
 .lives {
   display: flex;
   justify-content: center;
@@ -113,45 +112,36 @@ p {
   text-align: center;
   width: 13rem;
   height: 4rem;
-  top: ;
-   /* margin-top: 15rem; */
+  z-index: 2;
+  
 }
-
+*/
 /* .life-less {
   background-color: red;
 } */
 
-/* .points {
+.points {
   background-color: green;
-} */
+}
 
 .btn-wrap {
   width: 60rem;
   position: fixed;
   top: 62rem;
   left: 60rem;
-  /* background-color: yellow; */
   display: flex;
-  /* flex-direction: row; */
   align-items: center;
   justify-content: space-around;
-  /* background-color: #13043d; */
+  z-index: 1;
 }
 .home-screen {
- /* position: absolute; */
- color: green;
- background-color: black;
  height: 6rem;
  width: 20rem;
  font-size: 30px;
- z-index: 2;
+ /* z-index: 2; */
  top: 20px;
  left: 20px;
- /* display: block; */
- /* z-index: 2;
- top: 10%;
-  left: 12%;
-  bottom: 40%; */
+  transition-duration: 0.4s
 }
 .again {
   font-size: 30px;
@@ -180,8 +170,21 @@ p {
   border-radius: 0.5rem;
   transition-duration: 0.4s;
 }
+.difficulty
 
 button:hover {
+  background-color: rgba(150, 147, 173);
+  width: 21rem;
+  height: 7rem;
+  z-index: 1;
+}
+
+.again:hover {
+  background-color: rgba(150, 147, 173);
+  width: 21rem;
+  height: 7rem;
+}
+.home-screen:hover {
   background-color: rgba(150, 147, 173);
   width: 21rem;
   height: 7rem;
@@ -191,6 +194,7 @@ button:hover {
   background-color: rgba(150, 147, 173);
   width: 21rem;
   height: 7rem;
+  z-index: 9999;
 }
 
 .instructions {
@@ -199,4 +203,7 @@ button:hover {
 
 .hide {
   display: none;
+}
+.zindex {
+  z-index: 1;
 }
