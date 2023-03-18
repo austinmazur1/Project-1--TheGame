@@ -20,6 +20,7 @@ const home = document.querySelector(".home-screen");
 const right = document.querySelector(".right");
 const howTo = document.querySelector(".instructions");
 const backgroundColor = document.querySelector("#background");
+const difficultyBtns = document.querySelector(".difficulty");
 
 let playEasy = false;
 let playMedium = false;
@@ -238,6 +239,7 @@ easy.addEventListener("click", function () {
   playEasy = true;
   playMedium = false;
   playHard = false;
+ 
   //displays canvas back in original postion
   canvas.style.display = "block";
   canvas.classList.add('zindex')
@@ -308,9 +310,10 @@ function goHome() {
   points.classList.add("hide");
   buttons.style.display = "none";
   counter = 0;
-  // canvas.style.display = "none";
+  canvas.style.display = "none";
   points.style.display = 'none'
   splashScreen.style.display = "flex"
+  // difficultyBtns.classList.add('zindex')
 
   playEasy = false;
   playMedium = false;
