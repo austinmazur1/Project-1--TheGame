@@ -245,6 +245,8 @@ easy.addEventListener("click", function () {
 
   buttons.classList.remove("hide");
   buttons.style.display = "block";
+  console.log(buttons)
+  console.log('display: '+ buttons.style.display)
 
   points.classList.remove("hide");
   points.style.display = 'flex'
@@ -311,7 +313,7 @@ function goHome() {
   // canvas.style.display = "none";
   points.style.display = 'none'
   splashScreen.style.display = "flex"
-  
+
   playEasy = false;
   playMedium = false;
   playHard = false;
