@@ -245,8 +245,6 @@ easy.addEventListener("click", function () {
 
   buttons.classList.remove("hide");
   buttons.style.display = "block";
-  console.log(buttons)
-  console.log('display: '+ buttons.style.display)
 
   points.classList.remove("hide");
   points.style.display = 'flex'
@@ -279,11 +277,11 @@ medium.addEventListener("click", function () {
 
 hard.addEventListener("click", function () {
   loop();
-  canvas.style.opacity = "1";
+  canvas.style.display = "block";
   canvas.classList.add('zindex');
 
   buttons.classList.remove("hide");
-  buttons.style.opacity = "1";
+  buttons.style.display = "block";
 
   points.classList.remove("hide");
   points.style.display = 'flex'
