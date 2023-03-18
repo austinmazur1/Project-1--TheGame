@@ -171,24 +171,27 @@ const loop = function () {
       el.y < player.y + player.height &&
       el.height + el.y > player.y
     ) {
-      // clearCanv();
       lifeDeduction.play();
       player.x = 10;
       player.lives--;
       obstacles.length = 1;
       lives.innerHTML = `${player.lives}`;
-      // lostLife.classList.add("life-less");
       console.log(player.lives);
     }
   });
 
   ////Logic to move the player
-  //"TODO" put into function maybe
   if (movement.up && player.jumping == false) {
     //controls jump height
     player.y_velocity -= 30;
     player.jumping = true;
-  }
+    if(playEasy) {
+      player.y_velocity -= 10;
+    }
+    else if(playMedium) {
+      player.y_velocity -= 5;
+    }
+  } 
 
   // controls the left speed
   if (movement.left) {
@@ -226,7 +229,6 @@ const loop = function () {
 
 window.addEventListener("keydown", movement.keyListener);
 window.addEventListener("keyup", movement.keyListener);
-// window.requestAnimationFrame(loop);
 
 function stopAnimation() {
   cancelAnimationFrame(animateFrameId);
@@ -291,17 +293,13 @@ hard.addEventListener("click", function () {
   playEasy = false;
   playMedium = false;
   playHard = true;
+  isGameOver = false
   //displays canvas back in original postion
-  // canvas.style.display = "block";
   console.log(playMedium);
   console.log("hard mode");
-  // splashScreen.style.display = 'none'
   splashScreen.classList.add('hide')
 });
 
-// instructions.addEventListener("click", function () {
-// howTo.classList.remove('hide');
-// })
 home.addEventListener("click", goHome);
 function goHome() {
   clearCanv();
@@ -313,19 +311,14 @@ function goHome() {
   canvas.style.display = "none";
   points.style.display = 'none'
   splashScreen.style.display = "flex"
-  // difficultyBtns.classList.add('zindex')
-
+  
   playEasy = false;
   playMedium = false;
   playHard = false;
   minDelay = 100;
   maxDelay = 200;
   isGameOver = true;
-  //displays canvas back in original postion
-
-
   console.log("home");
-  // splashScreen.style.display = 'none'
 }
 
 // console.log(goHome);
