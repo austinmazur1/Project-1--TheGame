@@ -308,7 +308,7 @@ function goHome() {
   points.classList.add("hide");
   buttons.style.display = "none";
   counter = 0;
-  canvas.style.display = "none";
+  // canvas.style.display = "none";
   points.style.display = 'none'
   playEasy = false;
   playMedium = false;
