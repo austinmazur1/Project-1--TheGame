@@ -310,6 +310,8 @@ function goHome() {
   counter = 0;
   // canvas.style.display = "none";
   points.style.display = 'none'
+  splashScreen.style.display = "flex"
+  
   playEasy = false;
   playMedium = false;
   playHard = false;
