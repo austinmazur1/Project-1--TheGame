@@ -279,11 +279,11 @@ medium.addEventListener("click", function () {
 
 hard.addEventListener("click", function () {
   loop();
-  canvas.style.display = "block";
+  canvas.style.opacity = "1";
   canvas.classList.add('zindex');
 
   buttons.classList.remove("hide");
-  buttons.style.display = "block";
+  buttons.style.opacity = "1";
 
   points.classList.remove("hide");
   points.style.display = 'flex'

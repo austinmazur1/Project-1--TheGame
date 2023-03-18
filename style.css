@@ -202,7 +202,8 @@ button:hover {
 }
 
 .hide {
-  display: none;
+  /* display: none; */
+  opacity: 0;
 }
 .zindex {
   z-index: 1;
